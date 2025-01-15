@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<NoWarn>1701;1702;1591</NoWarn>
+		<SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+		<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>	
+
+	<ItemGroup>
+	  <ProjectReference Include="..\DI.Cms\DI.Cms.csproj" />
+	  <ProjectReference Include="..\DI.Common\DI.Common.csproj" />
+	  <ProjectReference Include="..\DI.Data\DI.Data.csproj" />
+	  <ProjectReference Include="..\DI.Framework\DI.Framework.csproj" />
+	  <ProjectReference Include="..\DI.Generator\DI.Generator.csproj" />
+	  <ProjectReference Include="..\DI.Quartz\DI.Quartz.csproj" />
+	  <ProjectReference Include="..\DI.System\DI.System.csproj" />
+	</ItemGroup>	
+
+	<ItemGroup>
+	  <Folder Include="logs\" />
+	</ItemGroup>
+
+</Project>

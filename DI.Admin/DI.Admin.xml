@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DI.Admin</name>
+    </assembly>
+    <members>
+        <member name="F:DI.Admin.Authorization.AuthorizationMiddlewareResultHandler.ALL_PERMISSION">
+            所有权限标识 
+        </member>
+        <member name="M:DI.Admin.Authorization.AuthorizationMiddlewareResultHandler.CheckAuthorize(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            检查 Contoller的 AppAuthorizeAttribute 授权
+            </summary>
+        </member>
+        <member name="M:DI.Admin.Authorization.AuthorizationMiddlewareResultHandler.HasPermi(System.String)">
+            <summary>
+            判断是否包含权限
+            </summary>
+        </member>
+        <member name="M:DI.Admin.Authorization.AuthorizationMiddlewareResultHandler.HasAnyPermi(System.String[])">
+            <summary>
+            判断是否包含权限
+            </summary>
+        </member>
+        <member name="M:DI.Admin.Authorization.AuthorizationMiddlewareResultHandler.HasPermissions(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            判断是否包含权限
+            </summary>
+        </member>
+        <member name="T:DI.Admin.Authorization.JwtHandler">
+            <summary>
+            JWT 授权自定义处理程序
+            </summary>
+        </member>
+        <member name="M:DI.Admin.Authorization.JwtHandler.HandleAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext)">
+            <summary>
+            此处不做校验, 在 AuthorizationMiddlewareResultHandler 校验, 返回自定义code
+            </summary>
+        </member>
+        <member name="T:DI.Admin.CaptchaController">
+            <summary>
+            验证码操作处理
+            参考: https://github.com/pojianbing/LazyCaptcha
+            </summary>
+        </member>
+        <member name="M:DI.Admin.CaptchaController.GetCaptchaImage">
+            <summary>
+            获取验证码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DI.Admin.IndexController">
+            <summary>
+            系统服务接口
+            </summary>
+        </member>
+        <member name="M:DI.Admin.IndexController.GetDescription">
+            <summary>
+            获取系统描述
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DI.Admin.Sample.SampleController">
+            <summary>
+            示例接口
+            </summary>
+        </member>
+        <member name="M:DI.Admin.Sample.SampleController.Get(System.Nullable{System.Int64})">
+            <summary>
+				从库(Node) 用户查询
+				表 SysUser 的实体类上 添加特性 [Tenant(DataConstants.Node)]
+			</summary>
+        </member>
+        <member name="M:DI.Admin.Sample.SampleController.RateLimit">
+            <summary>
+            限流
+            添加特性 [EnableRateLimiting(LimitType.Default)]
+            </summary>
+        </member>
+        <member name="M:DI.Admin.Sample.SampleController.IpRateLimit">
+            <summary>
+            IP限流
+            添加特性 [EnableRateLimiting(LimitType.IP)]
+            </summary>
+        </member>
+        <member name="T:DI.System.Controllers.CacheController">
+            <summary>
+            缓存监控
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.CacheController.GetCacheInfo">
+            <summary>
+            缓存监控
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.CacheController.GetCacheNames">
+            <summary>
+            取缓存信息
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.CacheController.GetCacheKeys(System.String)">
+            <summary>
+            取缓存 key
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.CacheController.GetCacheValue(System.String,System.String)">
+            <summary>
+            取缓存 值
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.CacheController.ClearCacheName(System.String)">
+            <summary>
+            按名字删除缓存
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.CacheController.ClearCacheKey(System.String)">
+            <summary>
+            按key删除缓存
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.CacheController.ClearCacheAll">
+            <summary>
+            删除全部缓存
+            </summary>
+        </member>
+        <member name="T:DI.System.Controllers.DruidController">
+            <summary>
+            数据监控(暂无此功能)
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.DruidController.GetDruidInfo">
+            <summary>
+            数据监控
+            </summary>
+        </member>
+        <member name="T:DI.System.Controllers.ServerController">
+            <summary>
+            服务器监控
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.ServerController.GetServerInfo">
+            <summary>
+            服务器监控
+            </summary>
+        </member>
+        <member name="T:DI.System.Controllers.SysLogininforController">
+            <summary>
+            系统访问记录
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysLogininforController.GetSysLogininforList(DI.Data.Dtos.SysLogininforDto)">
+            <summary>
+            查询系统访问记录列表
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysLogininforController.Get(System.Int64)">
+            <summary>
+            获取 系统访问记录 详细信息
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysLogininforController.Add(DI.Data.Dtos.SysLogininforDto)">
+            <summary>
+            新增 系统访问记录
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysLogininforController.Edit(DI.Data.Dtos.SysLogininforDto)">
+            <summary>
+            修改 系统访问记录
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysLogininforController.Remove(System.String)">
+            <summary>
+            删除 系统访问记录
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysLogininforController.Import(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            导入 系统访问记录
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysLogininforController.Export(DI.Data.Dtos.SysLogininforDto)">
+            <summary>
+            导出 系统访问记录
+            </summary>
+        </member>
+        <member name="T:DI.System.Controllers.SysOperLogController">
+            <summary>
+            操作日志记录
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysOperLogController.GetSysOperLogList(DI.System.Data.Dtos.SysOperLogDto)">
+            <summary>
+            查询操作日志记录列表
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysOperLogController.Remove(System.String)">
+            <summary>
+            删除 操作日志记录
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysOperLogController.Clean">
+            <summary>
+            删除 操作日志记录
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysOperLogController.Export(DI.System.Data.Dtos.SysOperLogDto)">
+            <summary>
+            导出 操作日志记录
+            </summary>
+        </member>
+        <member name="T:DI.System.Controllers.SysUserOnlineController">
+            <summary>
+            在线用户监控
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysUserOnlineController.GetSysOperLogList(System.String,System.String)">
+            <summary>
+            查询操作日志记录列表
+            </summary>
+        </member>
+        <member name="M:DI.System.Controllers.SysUserOnlineController.ForceLogout(System.String)">
+            <summary>
+            强退用户
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,16 @@
+﻿global using Mapster;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.Extensions.Logging;
+global using DI.Common.Data;
+global using DI.Data;
+global using DI.Data.Dtos;
+global using DI.Data.Entities;
+global using DI.Framework;
+global using DI.Framework.DependencyInjection;
+global using DI.Framework.Extensions;
+global using DI.Framework.Utils;
+global using DI.Quartz.Dtos;
+global using DI.Quartz.Entities;
+global using SqlSugar;
+global using System.ComponentModel.DataAnnotations;
