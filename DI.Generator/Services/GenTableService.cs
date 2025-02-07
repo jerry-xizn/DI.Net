@@ -102,7 +102,12 @@ public class GenTableService : BaseService<GenTable, GenTableDto>, ITransient
 
         if (row > 0 && !dto.Columns.IsEmpty())
         {
-            _genTableColumnRepository.Update(dto.Columns);
+            foreach (var col in dto.Columns)
+            {
+                _genTableColumnRepository.Update(col);
+            }
+
+            //_genTableColumnRepository.Update(dto.Columns);
         }
     }
 

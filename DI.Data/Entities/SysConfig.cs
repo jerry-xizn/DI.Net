@@ -5,7 +5,7 @@ namespace DI.Data.Entities
     /// <summary>
     ///  参数配置表 
     /// </summary>
-    [SugarTable("sys_config", "参数配置表")]
+    [SugarTable("sys_di_config", "参数配置表")]
     public class SysConfig : UserBaseEntity
     {
         /// <summary>

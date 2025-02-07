@@ -137,7 +137,6 @@ public class GenTableRepository : BaseRepository<GenTable, GenTableDto>
         var parameters = new List<SugarParameter>(){
             new SugarParameter("@tableNames", tableNames)
         };
-
         return Repo.Ado.SqlQuery<GenTable>(sql, parameters);
     }
 

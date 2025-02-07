@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using DI.Data.Node.Dtos;
 using DI.Framework.RateLimit;
+using SqlSugar;
 
 namespace DI.Admin
 {
@@ -9,6 +10,7 @@ namespace DI.Admin
     /// 示例接口
     /// </summary>
     [ApiDescriptionSettings("Sample")]
+    [Route("sample")]
     public class SampleController : ControllerBase
     {
         private readonly ILogger<SampleController> _logger;
@@ -68,6 +70,19 @@ namespace DI.Admin
         {
             //return Guid.NewGuid().ToString();
             return "ipRateLimit";
+        }
+
+        /// <summary>
+        /// 获取雪花ID
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet("getSnowID")]
+        public async Task<AjaxResult> GetSnowID()
+        {
+            var snowID = SnowFlakeSingle.Instance.NextId();
+            var data = snowID;
+            return AjaxResult.Success(data);
         }
     }
 }

@@ -243,42 +243,42 @@ public partial interface ISqlSugarRepository<TEntity>
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    int Update(TEntity entity, bool ignoreAllNullColumns);
+    int Update(TEntity entity, bool ignoreAllNullColumns, bool isExecuteCommandWithOptLock);
 
     /// <summary>
     /// 更新多条记录
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    int Update(params TEntity[] entities);
+    int Update(bool isExecuteCommandWithOptLock, params TEntity[] entities);
 
     /// <summary>
     /// 更新多条记录
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    int Update(IEnumerable<TEntity> entities);
+    int Update(IEnumerable<TEntity> entities, bool isExecuteCommandWithOptLock);
 
     /// <summary>
     /// 更新一条记录
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    Task<int> UpdateAsync(TEntity entity, bool ignoreAllNullColumns);
+    Task<int> UpdateAsync(TEntity entity, bool ignoreAllNullColumns, bool isExecuteCommandWithOptLock);
 
     /// <summary>
     /// 更新多条记录
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    Task<int> UpdateAsync(params TEntity[] entities);
+    Task<int> UpdateAsync(bool isExecuteCommandWithOptLock, params TEntity[] entities);
 
     /// <summary>
     /// 更新多条记录
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    Task<int> UpdateAsync(IEnumerable<TEntity> entities);
+    Task<int> UpdateAsync(IEnumerable<TEntity> entities, bool isExecuteCommandWithOptLock);
 
     /// <summary>
     /// 删除一条记录

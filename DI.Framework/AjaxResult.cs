@@ -77,7 +77,24 @@ namespace DI.Framework
             return Success(Msg_Success, null);
         }
 
+        /// <summary>
+        /// 失败
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="msg"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static AjaxResult Fail(int code, string msg, object? data)
+        {
+            return new AjaxResult(code, msg, data);
+        }
 
+        /// <summary>
+        /// 异常
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
         public static AjaxResult Error(int code, string msg)
         {
             return new AjaxResult(code, msg, null);

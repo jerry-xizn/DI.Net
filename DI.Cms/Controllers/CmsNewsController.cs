@@ -13,13 +13,13 @@ namespace DI.Cms.Controllers
     /// <summary>
     /// 新闻管理
     /// </summary>
-    [ApiDescriptionSettings("news")]
-    [Route("news/news")]
+    [ApiDescriptionSettings("cms")]
+    [Route("cms/news")]
     public class CmsNewsController : ControllerBase
     {
         private readonly ILogger<CmsNewsController> _logger;
         private readonly CmsNewsService _cmsNewsService;
-                
+
         public CmsNewsController(ILogger<CmsNewsController> logger,
             CmsNewsService cmsNewsService)
         {
@@ -31,10 +31,10 @@ namespace DI.Cms.Controllers
         /// 查询新闻管理列表
         /// </summary>
         [HttpGet("list")]
-        [AppAuthorize("news:news:list")]
+        [AppAuthorize("cms:news:list")]
         public async Task<SqlSugarPagedList<CmsNewsDto>> GetCmsNewsPagedList([FromQuery] CmsNewsDto dto)
         {
-           return await _cmsNewsService.GetDtoPagedListAsync(dto);
+            return await _cmsNewsService.GetDtoPagedListAsync(dto);
         }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace DI.Cms.Controllers
         /// </summary>
         [HttpGet("")]
         [HttpGet("{id}")]
-        [AppAuthorize("news:news:query")]
-        public async Task<AjaxResult> Get(int id)
+        [AppAuthorize("cms:news:query")]
+        public async Task<AjaxResult> Get(long id)
         {
             var data = await _cmsNewsService.GetDtoAsync(id);
             return AjaxResult.Success(data);
@@ -53,21 +53,12 @@ namespace DI.Cms.Controllers
         /// 新增 新闻管理
         /// </summary>
         [HttpPost("")]
-        [AppAuthorize("news:news:add")]
+        [AppAuthorize("cms:news:add")]
         [TypeFilter(typeof(DI.Framework.DataValidation.DataValidationFilter))]
         [DI.System.Log(Title = "新闻管理", BusinessType = BusinessType.INSERT)]
         public async Task<AjaxResult> Add([FromBody] CmsNewsDto dto)
         {
-            var data = await _cmsNewsService.InsertAsync(dto);
-            return AjaxResult.Success(data);
-        }
-
-        [HttpPost("Check")]
-        [AppAuthorize("news:news:add")]
-        [TypeFilter(typeof(DI.Framework.DataValidation.DataValidationFilter))]
-        [DI.System.Log(Title = "新闻管理", BusinessType = BusinessType.UPDATE)]
-        public async Task<AjaxResult> Check([FromBody] CmsNewsDto dto)
-        {
+            dto.NewsId = SnowFlakeSingle.instance.NextId();
             var data = await _cmsNewsService.InsertAsync(dto);
             return AjaxResult.Success(data);
         }
@@ -76,7 +67,7 @@ namespace DI.Cms.Controllers
         /// 修改 新闻管理
         /// </summary>
         [HttpPut("")]
-        [AppAuthorize("news:news:edit")]
+        [AppAuthorize("cms:news:edit")]
         [TypeFilter(typeof(DI.Framework.DataValidation.DataValidationFilter))]
         [DI.System.Log(Title = "新闻管理", BusinessType = BusinessType.UPDATE)]
         public async Task<AjaxResult> Edit([FromBody] CmsNewsDto dto)
@@ -89,7 +80,7 @@ namespace DI.Cms.Controllers
         /// 删除 新闻管理
         /// </summary>
         [HttpDelete("{ids}")]
-        [AppAuthorize("news:news:remove")]
+        [AppAuthorize("cms:news:remove")]
         [DI.System.Log(Title = "新闻管理", BusinessType = BusinessType.DELETE)]
         public async Task<AjaxResult> Remove(string ids)
         {
@@ -102,7 +93,7 @@ namespace DI.Cms.Controllers
         /// 导入 新闻管理
         /// </summary>
         [HttpPost("import")]
-        [AppAuthorize("news:news:import")]
+        [AppAuthorize("cms:news:import")]
         [DI.System.Log(Title = "新闻管理", BusinessType = BusinessType.IMPORT)]
         public async Task Import([Required] IFormFile file)
         {
@@ -116,7 +107,7 @@ namespace DI.Cms.Controllers
         /// 导出 新闻管理
         /// </summary>
         [HttpPost("export")]
-        [AppAuthorize("news:news:export")]
+        [AppAuthorize("cms:news:export")]
         [DI.System.Log(Title = "新闻管理", BusinessType = BusinessType.EXPORT)]
         public async Task Export(CmsNewsDto dto)
         {

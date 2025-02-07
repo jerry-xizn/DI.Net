@@ -8,7 +8,7 @@ namespace DI.Cms.Repositories
     /// <summary>
     ///  新闻管理 Repository
     ///  author di.net
-    ///  date   2025-01-14 17:08:44
+    ///  date   2025-01-21 15:06:29
     /// </summary>
     public class CmsNewsRepository : BaseRepository<CmsNews, CmsNewsDto>
     {
@@ -28,9 +28,12 @@ namespace DI.Cms.Repositories
         {
             return Repo.AsQueryable()
                 .WhereIF(dto.NewsId > 0, (t) => t.NewsId == dto.NewsId)
+                .WhereIF(!string.IsNullOrEmpty(dto.NewsTitle), (c) => c.NewsTitle!.Contains(dto.NewsTitle!))
+                .WhereIF(!string.IsNullOrEmpty(dto.NewsSummary), (c) => c.NewsSummary!.Contains(dto.NewsSummary!))
+                .WhereIF(!string.IsNullOrEmpty(dto.NewsAuthor), (c) => c.NewsAuthor!.Contains(dto.NewsAuthor!))
                 .Select((t) => new CmsNewsDto
                 {
-                     NewsId = t.NewsId 
+                    NewsId = t.NewsId
                 }, true);
         }
     }

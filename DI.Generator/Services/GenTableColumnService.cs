@@ -23,7 +23,7 @@ public class GenTableColumnService : BaseService<GenTableColumn, GenTableColumnD
     /// <returns>业务字段集合</returns>
     public List<GenTableColumn> SelectGenTableColumnListByTableId(long tableId)
     {
-        var queryable = _genTableColumnRepository.Queryable(new GenTableColumnDto { TableId = tableId });
+        var queryable = _genTableColumnRepository.Queryable(new GenTableColumnDto { TableId = tableId }).OrderBy(s => s.Sort);
         return queryable.ToList();
     }
 

@@ -2,7 +2,7 @@
 
 namespace DI.Data.Entities
 {
-    [SugarTable("sys_user", "用户表")]
+    [SugarTable("sys_di_user", "用户表")]
     public class SysUser : UserBaseEntity
     {
         /** 用户ID */

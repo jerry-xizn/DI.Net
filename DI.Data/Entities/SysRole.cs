@@ -2,7 +2,7 @@
 
 namespace DI.Data.Entities
 {
-    [SugarTable("sys_role", "角色表")]
+    [SugarTable("sys_di_role", "角色表")]
     public class SysRole : UserBaseEntity
     {
         /** 角色ID */

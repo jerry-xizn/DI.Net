@@ -5,7 +5,7 @@ namespace DI.Admin.Authorization
 {
     public static class AuthorizationExtensions
     {
-        public static AuthenticationBuilder AddRyJwt(this IServiceCollection services, bool enableGlobalAuthorize = false)
+        public static AuthenticationBuilder AddDiJwt(this IServiceCollection services, bool enableGlobalAuthorize = false)
         {
             var builder = services.AddJwt<JwtHandler>(enableGlobalAuthorize: enableGlobalAuthorize);
             services.AddScoped<IAuthorizationMiddlewareResultHandler, AuthorizationMiddlewareResultHandler>();

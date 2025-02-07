@@ -113,10 +113,13 @@ namespace DI.Generator.Controllers
         [HttpDelete("{tableIds}")]
         [AppAuthorize("tool:gen:remove")]
         [Log(Title = "代码生成", BusinessType = BusinessType.DELETE)]
-        public AjaxResult Remove(long[] tableIds)
+        public AjaxResult Remove(string tableIds)
         {
-            _genTableService.DeleteGenTableByIds(tableIds);
-
+            var tableIds2 = tableIds.SplitToList<long>();
+            if (tableIds2.Count > 0)
+            {
+                _genTableService.DeleteGenTableByIds(tableIds2.ToArray());
+            }
             return AjaxResult.Success();
         }
 

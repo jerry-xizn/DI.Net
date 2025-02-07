@@ -19,8 +19,7 @@ namespace DI.Admin
                 "DI.Data",
                 "DI.Admin",
                 "DI.Generator",
-                "DI.System",
-                "DI.Cms"
+                "DI.System"
             };
         }
     }

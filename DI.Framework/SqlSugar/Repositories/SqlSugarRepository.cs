@@ -1,3 +1,4 @@
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq.Expressions;
 
@@ -371,9 +372,12 @@ where TEntity : class, new()
     /// <summary>
     /// 更新一条记录
     /// </summary>
-    public virtual int Update(TEntity entity, bool ignoreAllNullColumns = false)
+    public virtual int Update(TEntity entity, bool ignoreAllNullColumns = false, bool isExecuteCommandWithOptLock = false)
     {
-        return Context.Updateable(entity).IgnoreColumns(ignoreAllNullColumns).ExecuteCommand();
+        if (isExecuteCommandWithOptLock)         
+            return Context.Updateable(entity).IgnoreColumns(ignoreAllNullColumns).ExecuteCommandWithOptLock(true);
+        else
+            return Context.Updateable(entity).IgnoreColumns(ignoreAllNullColumns).ExecuteCommand();
     }
 
     /// <summary>
@@ -381,9 +385,12 @@ where TEntity : class, new()
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    public virtual int Update(params TEntity[] entities)
+    public virtual int Update(bool isExecuteCommandWithOptLock = false, params TEntity[] entities)
     {
-        return Context.Updateable(entities).ExecuteCommand();
+        if (isExecuteCommandWithOptLock)
+            return Context.Updateable(entities).ExecuteCommandWithOptLock(true);
+        else
+            return Context.Updateable(entities).ExecuteCommand();
     }
 
     /// <summary>
@@ -391,9 +398,12 @@ where TEntity : class, new()
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    public virtual int Update(IEnumerable<TEntity> entities)
+    public virtual int Update(IEnumerable<TEntity> entities, bool isExecuteCommandWithOptLock = false)
     {
-        return Context.Updateable(entities.ToArray()).ExecuteCommand();
+        if (isExecuteCommandWithOptLock)
+            return Context.Updateable(entities.ToArray()).ExecuteCommandWithOptLock(true);
+        else
+            return Context.Updateable(entities.ToArray()).ExecuteCommand();
     }
 
     /// <summary>
@@ -401,17 +411,23 @@ where TEntity : class, new()
     /// </summary>
     /// <param name="whereExpression"></param>
     /// <returns></returns>
-    public int Update(Expression<Func<TEntity, bool>> columns, Expression<Func<TEntity, bool>> whereExpression)
+    public int Update(Expression<Func<TEntity, bool>> columns, Expression<Func<TEntity, bool>> whereExpression, bool isExecuteCommandWithOptLock = false)
     {
-        return Context.Updateable<TEntity>().SetColumns(columns).Where(whereExpression).ExecuteCommand();
+        if (isExecuteCommandWithOptLock)
+            return Context.Updateable<TEntity>().SetColumns(columns).Where(whereExpression).ExecuteCommandWithOptLock(true);
+        else
+            return Context.Updateable<TEntity>().SetColumns(columns).Where(whereExpression).ExecuteCommand();
     }
 
     /// <summary>
     /// 更新一条记录
     /// </summary>
-    public virtual async Task<int> UpdateAsync(TEntity entity, bool ignoreAllNullColumns = false)
+    public virtual async Task<int> UpdateAsync(TEntity entity, bool ignoreAllNullColumns = false, bool isExecuteCommandWithOptLock = false)
     {
-        return await Context.Updateable(entity).IgnoreColumns(ignoreAllNullColumns).ExecuteCommandAsync();
+        if (isExecuteCommandWithOptLock)
+            return await Context.Updateable(entity).IgnoreColumns(ignoreAllNullColumns).ExecuteCommandWithOptLockAsync(true);
+        else
+            return await Context.Updateable(entity).IgnoreColumns(ignoreAllNullColumns).ExecuteCommandAsync();
     }
 
     /// <summary>
@@ -419,9 +435,12 @@ where TEntity : class, new()
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    public virtual async Task<int> UpdateAsync(params TEntity[] entities)
+    public virtual async Task<int> UpdateAsync(bool isExecuteCommandWithOptLock = false, params TEntity[] entities)
     {
-        return await Context.Updateable(entities).ExecuteCommandAsync();
+        if (isExecuteCommandWithOptLock)
+            return await Context.Updateable(entities).ExecuteCommandWithOptLockAsync(true);
+        else
+            return await Context.Updateable(entities).ExecuteCommandAsync();
     }
 
     /// <summary>
@@ -429,20 +448,25 @@ where TEntity : class, new()
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    public virtual async Task<int> UpdateAsync(IEnumerable<TEntity> entities)
+    public virtual async Task<int> UpdateAsync(IEnumerable<TEntity> entities, bool isExecuteCommandWithOptLock = false)
     {
-        return await Context.Updateable(entities.ToArray()).ExecuteCommandAsync();
+        if (isExecuteCommandWithOptLock)
+            return await Context.Updateable(entities.ToArray()).ExecuteCommandWithOptLockAsync(true);
+        else
+            return await Context.Updateable(entities.ToArray()).ExecuteCommandAsync();
     }
-
 
     /// <summary>
     /// 自定义条件更新记录
     /// </summary>
     /// <param name="whereExpression"></param>
     /// <returns></returns>
-    public virtual async Task<int> UpdateAsync(Expression<Func<TEntity, bool>> columns, Expression<Func<TEntity, bool>> whereExpression)
+    public virtual async Task<int> UpdateAsync(Expression<Func<TEntity, bool>> columns, Expression<Func<TEntity, bool>> whereExpression, bool isExecuteCommandWithOptLock = false)
     {
-        return await Context.Updateable<TEntity>().SetColumns(columns).Where(whereExpression).ExecuteCommandAsync();
+        if (isExecuteCommandWithOptLock)
+            return await Context.Updateable<TEntity>().SetColumns(columns).Where(whereExpression).ExecuteCommandWithOptLockAsync(true);
+        else
+            return await Context.Updateable<TEntity>().SetColumns(columns).Where(whereExpression).ExecuteCommandAsync();
     }
 
     /// <summary>

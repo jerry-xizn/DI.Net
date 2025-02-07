@@ -6,6 +6,8 @@ using DI.Common.Files;
 using DI.Framework.Cache;
 using DI.Framework.Filters;
 using DI.Framework.RateLimit;
+using SqlSugar;
+using Newtonsoft.Json.Serialization;
 
 namespace DI.Admin
 {
@@ -18,7 +20,7 @@ namespace DI.Admin
             services.AddCorsAccessor();
 
             // jwt 鉴权
-            services.AddRyJwt();
+            services.AddDiJwt();
             // 捕获全局异常
             services.AddMvc(opt =>
             {
@@ -35,8 +37,12 @@ namespace DI.Admin
 
                     // 忽略所有 null 属性
                     //options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+
+                    //不改变字段大小
+                    //options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+
                     // long 类型序列化时转 string, 防止 JavaScript 出现精度溢出问题
-                    //options.SerializerSettings.Converters.AddLongTypeConverters();
+                    options.SerializerSettings.Converters.AddLongTypeConverters();
                 })
                 .AddInject(options =>
                 {
@@ -83,6 +89,9 @@ namespace DI.Admin
 
             // 远程请求
             services.AddRemoteRequest();
+
+            // 设置workID,用于使用雪花ID
+            SqlSugar.SnowFlakeSingle.WorkId = 1; // 可以设置的范围是 1 - 31 之间的数字，最小1，最大31
 
             // SqlSugar
             services.AddSqlSugarScope();

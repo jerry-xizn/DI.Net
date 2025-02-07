@@ -58,7 +58,7 @@ namespace DI.Generator.Utils
             {
                 column.HtmlType = GenConstants.HTML_INPUT;
 
-                if (dataType == "int")
+                if (dataType == "int" || dataType == "integer")
                 {
                     column.NetType = GenConstants.TYPE_INTEGER;
                 }
@@ -66,7 +66,7 @@ namespace DI.Generator.Utils
                 {
                     column.NetType = GenConstants.TYPE_DECIMAL;
                 }
-                else if (dataType == "long")
+                else if (dataType == "long" || dataType == "bigint")
                 {
                     column.NetType = GenConstants.TYPE_LONG;
                 }
@@ -236,7 +236,11 @@ namespace DI.Generator.Utils
          */
         public static string ReplaceText(string text)
         {
-            return text.Replace("(?:表|若依)", "");
+            if (!string.IsNullOrEmpty(text))
+            {
+                return text.Replace("(?:表|DI)", "");
+            }
+            else { return text; }
         }
 
         /**

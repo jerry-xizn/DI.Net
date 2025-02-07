@@ -13,7 +13,7 @@ namespace DI.Admin
 
         public string GetDescription()
         {
-            return $"欢迎使用{DiApp.DiConfig.Name}后台管理框架，当前版本：v{DiApp.DiConfig.Version}，请通过前端地址访问。";
+            return $"{DiApp.DiConfig.Name}管理系统，当前版本：v{DiApp.DiConfig.Version}，请通过前端地址登录。";
         }
     }
 }

@@ -400,26 +400,32 @@ public abstract class BaseRepository<TEntity, TDto> : ITransient
 
     #region Update
 
-    public int Update(TEntity entity, bool ignoreAllNullColumns = false)
+    public int Update(TEntity entity, bool ignoreAllNullColumns = false, bool isExecuteCommandWithOptLock = false)
     {
-        return Repo.Context.Updateable(entity).IgnoreColumns(ignoreAllNullColumns).ExecuteCommand();
+        if (isExecuteCommandWithOptLock == true)
+            return Repo.Context.Updateable(entity).IgnoreColumns(ignoreAllNullColumns).ExecuteCommandWithOptLock(true);
+        else
+            return Repo.Context.Updateable(entity).IgnoreColumns(ignoreAllNullColumns).ExecuteCommand();
     }
 
-    public int Update(IEnumerable<TEntity> entities)
+    public int Update(IEnumerable<TEntity> entities, bool isExecuteCommandWithOptLock = false)
     {
-        return Repo.Context.Updateable(entities.ToArray()).ExecuteCommand();
+        if (isExecuteCommandWithOptLock)
+            return Repo.Context.Updateable(entities.ToArray()).ExecuteCommandWithOptLock(true); 
+        else
+            return Repo.Context.Updateable(entities.ToArray()).ExecuteCommand();
     }
 
-    public async Task<int> UpdateAsync(TEntity entity, bool ignoreAllNullColumns = false)
+    public async Task<int> UpdateAsync(TEntity entity, bool ignoreAllNullColumns = false, bool isExecuteCommandWithOptLock = false)
     {
         this.SetUpdateUserInfo(entity);
-        return await Repo.UpdateAsync(entity, ignoreAllNullColumns);
+        return await Repo.UpdateAsync(entity, ignoreAllNullColumns, isExecuteCommandWithOptLock);
     }
 
-    public async Task<int> UpdateAsync(IEnumerable<TEntity> entities)
+    public async Task<int> UpdateAsync(IEnumerable<TEntity> entities, bool isExecuteCommandWithOptLock = false)
     {
         this.SetUpdateUserInfo(entities);
-        return await Repo.UpdateAsync(entities);
+        return await Repo.UpdateAsync(entities, isExecuteCommandWithOptLock);
     }
 
     /// <summary>
@@ -431,28 +437,28 @@ public abstract class BaseRepository<TEntity, TDto> : ITransient
         return await Repo.Context.Fastest<TEntity>().BulkUpdateAsync(entities);
     }
 
-    public int Update(TDto dto, bool ignoreAllNullColumns = false)
+    public int Update(TDto dto, bool ignoreAllNullColumns = false, bool isExecuteCommandWithOptLock = false)
     {
         var entity = dto.Adapt<TEntity>();
-        return this.Update(entity, ignoreAllNullColumns);
+        return this.Update(entity, ignoreAllNullColumns, isExecuteCommandWithOptLock);
     }
 
-    public async Task<int> UpdateAsync(TDto dto, bool ignoreAllNullColumns = false)
+    public async Task<int> UpdateAsync(TDto dto, bool ignoreAllNullColumns = false, bool isExecuteCommandWithOptLock = false)
     {
         var entity = dto.Adapt<TEntity>();
-        return await this.UpdateAsync(entity, ignoreAllNullColumns);
+        return await this.UpdateAsync(entity, ignoreAllNullColumns, isExecuteCommandWithOptLock);
     }
 
-    public int Update(IEnumerable<TDto> dtos)
+    public int Update(IEnumerable<TDto> dtos, bool isExecuteCommandWithOptLock = false)
     {
         var entities = dtos.Adapt<List<TEntity>>();
-        return this.Update(entities);
+        return this.Update(entities, isExecuteCommandWithOptLock);
     }
 
-    public async Task<int> UpdateAsync(IEnumerable<TDto> dtos)
+    public async Task<int> UpdateAsync(IEnumerable<TDto> dtos, bool isExecuteCommandWithOptLock = false)
     {
         var entities = dtos.Adapt<List<TEntity>>();
-        return await this.UpdateAsync(entities);
+        return await this.UpdateAsync(entities, isExecuteCommandWithOptLock);
     }
 
     /// <summary>

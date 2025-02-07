@@ -7,11 +7,13 @@ namespace DI.Generator.RepoSql
         private readonly ISqlSugarRepository _sqlSugarRepository;
         private readonly MySql _mySql;
         private readonly SqlServer _sqlServer;
-        public RepoSqlService(ISqlSugarRepository sqlSugarRepository, MySql mySql, SqlServer sqlServer)
+        private readonly Kdbndp _kdbndp;
+        public RepoSqlService(ISqlSugarRepository sqlSugarRepository, MySql mySql, SqlServer sqlServer, Kdbndp kdbndp)
         {
             _sqlSugarRepository = sqlSugarRepository;
             _mySql = mySql;
             _sqlServer = sqlServer;
+            _kdbndp = kdbndp;
         }
 
         public DbType GetDbType()
@@ -26,6 +28,7 @@ namespace DI.Generator.RepoSql
             {
                 DbType.MySql => _mySql,
                 DbType.SqlServer => _sqlServer,
+                DbType.Kdbndp => _kdbndp,
                 //DbType.Oracle => _oracle,
                 _ => _mySql
             };
